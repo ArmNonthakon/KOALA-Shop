@@ -3,5 +3,6 @@ package ports
 import "github.com/ArmNonthakon/KOALA-Shop/internal/core/domain"
 
 type UserRepository interface {
-	AddUser(user domain.User) error
+	AddNewUser(user domain.Users) error
+	CheckLogin(user domain.InputLogin) (string, error)
 }

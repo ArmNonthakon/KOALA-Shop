@@ -13,10 +13,18 @@ type GormRepo struct {
 func NewUserRepository(db *gorm.DB) ports.UserRepository {
 	return &GormRepo{db: db}
 }
-func (d *GormRepo) AddUser(user domain.User) error {
+func (d *GormRepo) AddNewUser(user domain.Users) error {
 	if result := d.db.Create(&user); result.Error != nil {
 		return result.Error
 	}
-
 	return nil
+}
+
+func (d *GormRepo) CheckLogin(user domain.InputLogin) (string, error) {
+	data := domain.Users{}
+	result := d.db.Find(&data, "userName= ?", user.Username)
+	if result.Error != nil {
+		return "", result.Error
+	}
+	return data.Password, nil
 }

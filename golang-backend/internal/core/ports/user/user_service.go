@@ -1,5 +1,8 @@
 package ports
 
+import "github.com/ArmNonthakon/KOALA-Shop/internal/core/domain"
+
 type UserService interface {
-	GetUser(userName string, email string) error
+	GetInputRegister(user domain.InputRegister) error
+	GetInputLogin(user domain.InputLogin) (bool, error)
 }

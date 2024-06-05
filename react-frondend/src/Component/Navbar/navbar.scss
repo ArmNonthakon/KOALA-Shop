@@ -1,0 +1,208 @@
+$primary-color : rgb(97, 96, 96);
+$secondary-color : black;
+
+%base-a {
+    color: black;
+    text-decoration: none;
+}
+
+%base-a-hover {
+    color: rgba(0, 0, 0, 0.719);
+    text-decoration: underline;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: repeat(3, 32%);
+    padding: 3px 8px;
+    column-gap: 20px;
+    justify-content: center;
+    height: auto;
+    border: 1px solid;
+
+    .shop-name {
+        display: flex;
+        justify-content: start;
+        padding-left: 20px;
+        font-size: 18px;
+        font-style: italic;
+    }
+}
+
+nav {
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            cursor: pointer;
+        }
+    }
+}
+
+nav {
+    .navbar-authen {
+        justify-content: space-between;
+
+        .navbar-authen-items {
+
+            background-color: rgba(255, 255, 255, 0);
+            width: 70%;
+            display: flex;
+            justify-content: space-around;
+            color: black;
+
+            img {
+                cursor: pointer;
+                transform: rotate(0deg);
+            }
+
+            img.icon-arrow {
+                display: none;
+                transform: rotate(90deg);
+            }
+
+            .navbar-authen-items-cart {
+                a {
+                    margin-top: 10px;
+                    img {
+                        width: 35px;
+                    }
+
+                    img:hover {
+                        opacity: 0.7;
+                    }
+                }
+
+                p {
+                    position: absolute;
+                    color: white;
+                    margin-top: -4px;
+                    margin-left: 3px;
+                    font-size: 15px;
+                    cursor: pointer;
+                }
+            }
+
+            .navbar-authen-items-loginANDsign {
+                position:static;
+                border: none;
+                background-color: rgb(255, 255, 255);
+                z-index: 2;
+                width: 70%;
+                display: flex;
+                justify-content: space-evenly;
+                flex-direction: row;
+                a {
+                    @extend %base-a;
+                    font-size: 18px;
+                }
+
+                a:hover {
+                    @extend %base-a-hover;
+                }
+            }
+
+        }
+    }
+}
+
+//list item for click to page
+.list-item {
+    padding: 10px;
+
+    a {
+        @extend %base-a;
+        margin-right: 20px;
+        font-size: 16px;
+    }
+
+    a:hover {
+        @extend %base-a-hover;
+    }
+
+    a:first-child {
+        margin-left: 2%;
+    }
+}
+
+//item that none in desktop
+
+
+@media only screen and (max-width: 1000px) {
+    nav {
+        .navbar-authen {
+            .navbar-authen-items {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    nav {
+        .navbar-authen {
+            .navbar-authen-items {
+                position: relative;
+                width: 80%;
+                justify-content: space-evenly;
+
+                img.icon-arrow {
+                    display: inline;
+                }
+
+                .navbar-authen-items-loginANDsign {
+                    display: none;
+                    right: 0;
+                    flex-direction: column;
+                    align-items: center;
+                    position: absolute;
+                    top: 56px;
+                    width: 120px;
+                    border: 1px solid;
+                    background-color: rgb(255, 255, 255);
+                    z-index: 2;
+
+                    a {
+                        padding: 14px 16px;
+                        border-bottom: 1px solid;
+
+                    }
+
+                    a:last-child {
+                        border-bottom: none;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    nav {
+        .navbar-authen {
+            .navbar-authen-items {
+                width: 100%;
+                justify-content: space-evenly;
+            }
+
+            img {
+                width: 30px;
+            }
+        }
+    }
+
+    .list-item {
+        display: grid;
+        width: 60%;
+        row-gap: 10px;
+        grid-template-columns: repeat(2, 50%);
+
+        a {
+            font-size: 12px;
+        }
+    }
+
+}

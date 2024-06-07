@@ -9,30 +9,36 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
+    const [response, setResponse] = useState('');
+    const [loading ,setLoading] = useState('');
 
     const callRegisterApi = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setError('');
+        setResponse('');
+        setLoading('Signing up...')
         if (password === confirmPassword) {
             try {
                 const responseStatus = await regisApi({ username, email, password });
-                console.log(responseStatus)
                 if (responseStatus === 202) {
                     setUsername('');
                     setEmail('');
                     setPassword('');
                     setConfirmPassword('');
-                    setError('');
-                    navigate('/login');
+                    setResponse('Sign up success...');
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 3500);
+                    
                 } else {
-                    setError('Registration failed. Please try again.');
+                    setResponse('Registration failed. Please try again.');
                 }
             } catch (error) {
-                setError('Registration failed. Please try again.');
+                setResponse('Registration failed. Please try again.');
+            }finally{
+                setLoading('')
             }
         } else {
-            setError('Passwords do not match.');
+            setResponse('Passwords do not match.');
         }
     };
 
@@ -80,10 +86,10 @@ const Register = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
-                <div className='error'>{error && error}</div>
+                <div className='error' style={{color: response == "Sign up Success..." ? "green" : "red"}}>{response && response}</div>
                 <div className='register-button'>
-                    <button type='submit' >
-                        Sign up
+                    <button type='submit' style={{backgroundColor: loading && "rgb(147, 196, 239)"}}>
+                        {loading ? loading : "Sign up"}
                     </button>
                     <p>Already have an account? <Link to="/login">Login</Link></p>
                 </div>

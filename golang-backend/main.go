@@ -1,9 +1,6 @@
 package main
 
 import (
-	"net/http"
-	"time"
-
 	gorm_adapters "github.com/ArmNonthakon/KOALA-Shop/internal/adapters/database"
 	"github.com/ArmNonthakon/KOALA-Shop/internal/adapters/http_adapter"
 	"github.com/ArmNonthakon/KOALA-Shop/internal/core"
@@ -42,18 +39,8 @@ func main() {
 		SigningKey:  jwtware.SigningKey{Key: []byte("koala0325687")},
 		TokenLookup: "cookie:token",
 	}))
-	app.Use(csrf.New(csrf.Config{
-		KeyLookup:      "header:X-CSRF-Token",
-		CookieName:     "csrf_token",
-		CookieSameSite: "Strict",
-		Expiration:     10 * time.Second, // Adjust expiration time as per your requirement
-		// Customize error handling for CSRF token validation failure
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			return c.Status(http.StatusBadRequest).JSON(fiber.Map{
-				"error": "CSRF token validation failed",
-			})
-		},
-	}))
+	app.Use(csrf.New())
 	app.Get("/recommend", productHttp.ProductRecommend)
+	app.Get("/getDataBycategory", productHttp.GetProductByCategory)
 	app.Listen(":3000")
 }

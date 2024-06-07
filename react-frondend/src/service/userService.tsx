@@ -8,6 +8,9 @@ interface InputRegister{
     email: string
     password:string
 }
+interface InputCategory{
+    category :string
+}
 export const LoginApi = async ({ username, password }: InputLogin) => {
     try {
         const response = await axios.post('/api/login', {
@@ -34,9 +37,9 @@ export const regisApi = async ({username,email,password}: InputRegister) => {
         return error
     }
 }
-export const testApi = async () => {
+export const getProductRecommend = async () => {
     try {
-        const response = await axios.get('/api/getData',{
+        const response = await axios.get('/api/recommend',{
             withCredentials:true
         });
         return response.data
@@ -44,3 +47,17 @@ export const testApi = async () => {
         return error
     }
 }
+export const getProductByCategory = async ({category}:InputCategory) => {
+    try {
+        const response = await axios.post('/api/recommend',{
+            category:category
+        },{
+            withCredentials:true
+        });
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+
+

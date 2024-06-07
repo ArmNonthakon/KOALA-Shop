@@ -38,3 +38,11 @@ func (d *GormRepo) ResData() ([]domain.Product, error) {
 	}
 	return data, nil
 }
+func (d *GormRepo) ResDataByCategory(category string) ([]domain.Product, error) {
+	data := []domain.Product{}
+	result := d.db.Find(&data, "category = ?", category)
+	if result.Error != nil {
+		return data, result.Error
+	}
+	return data, nil
+}

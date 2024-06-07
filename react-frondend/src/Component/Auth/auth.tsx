@@ -3,13 +3,15 @@ import { useEffect } from 'react'
 import './auth.scss'
 import Login from './Login/login'
 import Register from './Register/register'
+import { getCookie } from 'typescript-cookie'
+import { useNavigate } from 'react-router-dom'
 interface Auth {
     state: string
 }
 const Auth = ({ state }: Auth) => {
-
+    const navigate = useNavigate()
     useEffect(() => {
-
+        getCookie('token') && navigate('/')
     }, [])
     return (
         <>

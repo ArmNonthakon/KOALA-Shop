@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import Content from '../Content/content';
 import { useNavigate } from 'react-router-dom';
-import { testApi } from '../../service/userService';
+import { getProductRecommend } from '../../service/userService';
 function Home() {
     const [visibleButton, setVisibleButton] = useState(4);
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ function Home() {
     }
     const callTestApi = async ()=>{
         try {
-            const response = await testApi()
+            const response = await getProductRecommend()
             console.log(response)
         } catch (error) {
             console.log(error)
@@ -72,7 +72,6 @@ function Home() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <button onClick={callTestApi}>Test</button>
             <div id='category-section' className='category-section'>
                 <div className='category-contain'>
                     {categories.map((category) => (
@@ -96,6 +95,7 @@ function Home() {
                 </div>
             </div>
             <Content topic='Recommend' checkNav={false}/>
+            <button onClick={callTestApi}>Test</button>
         </>
     );
 }

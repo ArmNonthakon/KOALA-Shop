@@ -7,24 +7,29 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [response, setResponse] = useState('');
+    const [loading ,setLoading] = useState('');
 
     const callLoginApi = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setError('');
+        setResponse('');
+        setLoading('Logging in...')
         try {
             const response = await LoginApi({ username, password });
             if (response === 202) {
                 setUsername('');
                 setPassword('');
+                setResponse('Login success!!')
                 setTimeout(() => {
                     navigate('/');
-                }, 2000);
+                }, 3500);
             } else {
-                setError('Login failed. Please check your username and password.');
+                setResponse('Login failed. Please check your username and password.');
             }
         } catch (error) {
-            setError('Login failed. Please check your username and password.');
+            setResponse('Login failed. Please check your username and password.');
+        }finally{
+            setLoading('')
         }
     };
 
@@ -52,10 +57,10 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>               
-                <div className='error'>{error && error}</div>
+                <div className='error' style={{color : response == "Login success!!" ? "green" : "red" } }>{response && response}</div>
                 <div className='login-button'>
-                    <button type='submit' >
-                        Loign
+                    <button type='submit' style={{backgroundColor: loading && "rgb(147, 196, 239)" }}>
+                        {loading ? loading : "Login"}
                     </button>
                     <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
                 </div>

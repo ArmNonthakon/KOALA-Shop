@@ -11,3 +11,6 @@ type Product struct {
 	Isrecommend bool
 	VisitCount  int
 }
+type InputCategory struct {
+	Category string
+}

@@ -1,6 +1,7 @@
 package http_adapter
 
 import (
+	"github.com/ArmNonthakon/KOALA-Shop/internal/core/domain"
 	ports "github.com/ArmNonthakon/KOALA-Shop/internal/core/ports/product"
 	"github.com/gofiber/fiber/v2"
 )
@@ -15,6 +16,17 @@ func NewProductHttpHandler(service ports.ProductService) *ProductHttpHandler {
 
 func (s *ProductHttpHandler) ProductRecommend(c *fiber.Ctx) error {
 	data, err := s.service.ReqData()
+	if err != nil {
+		return c.SendStatus(fiber.ErrBadRequest.Code)
+	}
+	return c.Status(fiber.StatusAccepted).JSON(data)
+}
+func (s *ProductHttpHandler) GetProductByCategory(c *fiber.Ctx) error {
+	var input domain.InputCategory
+	if err := c.BodyParser(&input); err != nil {
+		return c.SendStatus(fiber.StatusBadRequest)
+	}
+	data, err := s.service.ReqDataByCategory(input.Category)
 	if err != nil {
 		return c.SendStatus(fiber.ErrBadRequest.Code)
 	}

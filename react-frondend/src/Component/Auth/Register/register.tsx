@@ -39,6 +39,7 @@ const Register = () => {
             }
         } else {
             setResponse('Passwords do not match.');
+            setLoading('')
         }
     };
 

@@ -42,7 +42,7 @@ func (h *UserHttpHandler) GetInputLogin(c *fiber.Ctx) error {
 	claims := jwt.MapClaims{
 		"userName": resultUsername,
 		"admin":    false,
-		"exp":      time.Now().Add(time.Hour * 12).Unix(),
+		"exp":      time.Now().Add(time.Hour * 6).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	t, err := token.SignedString([]byte("koala0325687"))
@@ -53,7 +53,7 @@ func (h *UserHttpHandler) GetInputLogin(c *fiber.Ctx) error {
 	cookie := new(fiber.Cookie)
 	cookie.Name = "token"
 	cookie.Value = t
-	cookie.Expires = time.Now().Add(12 * time.Hour)
+	cookie.Expires = time.Now().Add(6 * time.Hour)
 	cookie.SameSite = fiber.CookieSameSiteStrictMode
 	// Set cookie
 	c.Cookie(cookie)

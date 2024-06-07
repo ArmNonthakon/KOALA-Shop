@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import Content from '../Content/content';
 import { useNavigate } from 'react-router-dom';
-
+import { testApi } from '../../service/userService';
 function Home() {
     const [visibleButton, setVisibleButton] = useState(4);
     const navigate = useNavigate();
@@ -28,6 +28,17 @@ function Home() {
     const slidePic = ["/Arrive.png", "/Coming.png", "/Princess.png", "/SALE.png"]
     const navigateToOtherPage = (url: string) => {
         navigate('/' + url)
+    }
+    const callTestApi = async ()=>{
+        try {
+            const response = await testApi()
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+            throw error;
+        }
+        
+
     }
     return (
         <>
@@ -61,6 +72,7 @@ function Home() {
                     </SwiperSlide>
                 ))}
             </Swiper>
+            <button onClick={callTestApi}>Test</button>
             <div id='category-section' className='category-section'>
                 <div className='category-contain'>
                     {categories.map((category) => (

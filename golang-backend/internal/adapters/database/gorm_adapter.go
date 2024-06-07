@@ -2,7 +2,8 @@ package gorm_adapters
 
 import (
 	"github.com/ArmNonthakon/KOALA-Shop/internal/core/domain"
-	ports "github.com/ArmNonthakon/KOALA-Shop/internal/core/ports/user"
+	portsProduct "github.com/ArmNonthakon/KOALA-Shop/internal/core/ports/product"
+	portsUser "github.com/ArmNonthakon/KOALA-Shop/internal/core/ports/user"
 	"gorm.io/gorm"
 )
 
@@ -10,8 +11,8 @@ type GormRepo struct {
 	db *gorm.DB
 }
 
-func NewUserRepository(db *gorm.DB) ports.UserRepository {
-	return &GormRepo{db: db}
+func NewUserRepository(db *gorm.DB) (portsUser.UserRepository, portsProduct.ProductRepository) {
+	return &GormRepo{db: db}, &GormRepo{db: db}
 }
 func (d *GormRepo) AddNewUser(user domain.Users) error {
 	if result := d.db.Create(&user); result.Error != nil {
@@ -20,11 +21,20 @@ func (d *GormRepo) AddNewUser(user domain.Users) error {
 	return nil
 }
 
-func (d *GormRepo) CheckLogin(user domain.InputLogin) (string, error) {
+func (d *GormRepo) CheckLogin(user domain.InputLogin) (string, string, error) {
 	data := domain.Users{}
 	result := d.db.Find(&data, "userName= ?", user.Username)
 	if result.Error != nil {
-		return "", result.Error
+		return "", "", result.Error
 	}
-	return data.Password, nil
+	return data.Username, data.Password, nil
+}
+
+func (d *GormRepo) ResData() ([]domain.Product, error) {
+	data := []domain.Product{}
+	result := d.db.Find(&data, "Isrecommend = true")
+	if result.Error != nil {
+		return data, result.Error
+	}
+	return data, nil
 }

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './navbar.scss'
 import { Link } from 'react-router-dom'
+import { getCookie } from 'typescript-cookie'
 function Navbar() {
     let [menuState, setMenuState] = useState(false)
     let [amountProduct,SetAmountProduct] = useState(0)
@@ -34,6 +35,11 @@ function Navbar() {
             setMenuState(false);
         }
     }
+    useEffect(()=>{
+        const token = getCookie('token')
+        console.log(token)
+    },[])
+    
     return (
         <>
             <nav>

@@ -41,10 +41,10 @@ func (r *userRepositoryIml) GetInputRegister(user domain.InputRegister) error {
 	return nil
 }
 
-func (r *userRepositoryIml) GetInputLogin(user domain.InputLogin) (bool, error) {
-	result, err := r.repo.CheckLogin(user)
+func (r *userRepositoryIml) GetInputLogin(user domain.InputLogin) (string, bool, error) {
+	resultUsername, resultPassword, err := r.repo.CheckLogin(user)
 	if err != nil {
-		return false, err
+		return resultUsername, false, err
 	}
-	return CheckPasswordHash(user.Password, result), nil
+	return resultUsername, CheckPasswordHash(user.Password, resultPassword), nil
 }

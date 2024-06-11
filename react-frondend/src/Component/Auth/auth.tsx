@@ -1,4 +1,3 @@
-import Navbar from '../Navbar/navbar'
 import { useEffect } from 'react'
 import './auth.scss'
 import Login from './Login/login'
@@ -15,7 +14,6 @@ const Auth = ({ state }: Auth) => {
     }, [])
     return (
         <>
-            <Navbar />
             <div className='section-auth'>
                 <div className='auth-picture'>
                     <img src="/koalaLogo.png" alt="" width="200px" />

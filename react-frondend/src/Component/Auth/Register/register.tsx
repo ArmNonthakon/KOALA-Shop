@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import './register.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { regisApi } from '../../../service/userService';
@@ -10,35 +10,45 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [response, setResponse] = useState('');
-    const [loading ,setLoading] = useState('');
+    const [loading, setLoading] = useState('');
+    const [isSubmit, setIssubmit] = useState(false)
 
     const callRegisterApi = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setIssubmit(true)
         setResponse('');
         setLoading('Signing up...')
-        if (password === confirmPassword) {
-            try {
-                const responseStatus = await regisApi({ username, email, password });
-                if (responseStatus === 202) {
-                    setUsername('');
-                    setEmail('');
-                    setPassword('');
-                    setConfirmPassword('');
-                    setResponse('Sign up success...');
-                    setTimeout(() => {
-                        navigate('/login');
-                    }, 3500);
-                    
-                } else {
+        if (username != "" && email != "" && password != "" && confirmPassword != "") {
+            if (password === confirmPassword) {
+                try {
+                    const responseStatus = await regisApi({ username, email, password });
+                    if (responseStatus === 202) {
+                        setUsername('');
+                        setEmail('');
+                        setPassword('');
+                        setConfirmPassword('');
+                        setResponse('Sign up success...');
+                        setIssubmit(false)
+                        setTimeout(() => {
+                            navigate('/login');
+                        }, 3000);
+
+                    } else {
+                        setResponse('Registration failed. Please try again.');
+                    }
+                } catch (error) {
                     setResponse('Registration failed. Please try again.');
+                } finally {
+                    setLoading('')
+                    setIssubmit(false)
                 }
-            } catch (error) {
-                setResponse('Registration failed. Please try again.');
-            }finally{
+            } else {
+                setResponse('Passwords do not match.');
                 setLoading('')
+                setIssubmit(false)
             }
-        } else {
-            setResponse('Passwords do not match.');
+        }else{
+            setResponse('Please fill out the information completely.');
             setLoading('')
         }
     };
@@ -55,6 +65,7 @@ const Register = () => {
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        style={{ borderBottom: isSubmit == true && username == "" ? "3px solid rgb(245, 121, 121)" : "3px solid black" }}
                     />
                 </div>
                 <div>
@@ -65,6 +76,7 @@ const Register = () => {
                         id='email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        style={{ borderBottom: isSubmit == true && email == "" ? "3px solid rgb(245, 121, 121)" : "3px solid black" }}
                     />
                 </div>
                 <div>
@@ -75,6 +87,7 @@ const Register = () => {
                         id='Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        style={{ borderBottom: isSubmit == true && password == "" ? "3px solid rgb(245, 121, 121)" : "3px solid black" }}
                     />
                 </div>
                 <div>
@@ -85,11 +98,12 @@ const Register = () => {
                         id='confirmPassword'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        style={{ borderBottom: isSubmit == true && confirmPassword == "" ? "3px solid rgb(245, 121, 121)" : "3px solid black" }}
                     />
                 </div>
-                <div className='error' style={{color: response == "Sign up Success..." ? "green" : "red"}}>{response && response}</div>
+                <div className='error' style={{ color: response == "Sign up Success..." ? "green" : "red" }}>{response && response}</div>
                 <div className='register-button'>
-                    <button type='submit' style={{backgroundColor: loading && "rgb(147, 196, 239)"}}>
+                    <button type='submit' style={{ backgroundColor: loading && "rgb(147, 196, 239)" }}>
                         {loading ? loading : "Sign up"}
                     </button>
                     <p>Already have an account? <Link to="/login">Login</Link></p>

@@ -8,29 +8,39 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [response, setResponse] = useState('');
-    const [loading ,setLoading] = useState('');
+    const [loading, setLoading] = useState('');
+    const [isSubmit, setIssubmit] = useState(false)
 
     const callLoginApi = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setResponse('');
         setLoading('Logging in...')
-        try {
-            const response = await LoginApi({ username, password });
-            if (response === 202) {
-                setUsername('');
-                setPassword('');
-                setResponse('Login success!!')
-                setTimeout(() => {
-                    navigate('/');
-                }, 3500);
-            } else {
+        setIssubmit(true)
+        if (username != "" && password != "") {
+            try {
+                const response = await LoginApi({ username, password });
+                if (response === 202) {
+                    setUsername('');
+                    setPassword('');
+                    setResponse('Login success!!')
+                    setIssubmit(true)
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3000);
+                } else {
+                    setResponse('Login failed. Please check your username and password.');
+                }
+            } catch (error) {
                 setResponse('Login failed. Please check your username and password.');
+            } finally {
+                setLoading('')
+                setIssubmit(false)
             }
-        } catch (error) {
-            setResponse('Login failed. Please check your username and password.');
-        }finally{
+        } else {
+            setResponse('Please fill out the information completely.');
             setLoading('')
         }
+
     };
 
     return (
@@ -45,6 +55,7 @@ const Login = () => {
                         id="Username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        style={{ borderBottom: isSubmit == true && username == "" ? "3px solid rgb(245, 121, 121)" : "3px solid black" }}
                     />
                 </div>
                 <div>
@@ -55,11 +66,12 @@ const Login = () => {
                         id='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        style={{ borderBottom: isSubmit == true && password == "" ? "3px solid rgb(245, 121, 121)" : "3px solid black" }}
                     />
-                </div>               
-                <div className='error' style={{color : response == "Login success!!" ? "green" : "red" } }>{response && response}</div>
+                </div>
+                <div className='error' style={{ color: response == "Login success!!" ? "green" : "red" }}>{response && response}</div>
                 <div className='login-button'>
-                    <button type='submit' style={{backgroundColor: loading && "rgb(147, 196, 239)" }}>
+                    <button type='submit' style={{ backgroundColor: loading && "rgb(147, 196, 239)" }}>
                         {loading ? loading : "Login"}
                     </button>
                     <p>Don't have an account? <Link to="/signup">Sign up</Link></p>

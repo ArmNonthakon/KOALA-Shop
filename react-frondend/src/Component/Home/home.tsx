@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../Navbar/navbar';
 import './home.scss';
 import 'swiper/css';
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
@@ -11,7 +10,6 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import Content from '../Content/content';
 import { useNavigate } from 'react-router-dom';
-import { getProductRecommend } from '../../service/userService';
 function Home() {
     const [visibleButton, setVisibleButton] = useState(4);
     const navigate = useNavigate();
@@ -29,20 +27,9 @@ function Home() {
     const navigateToOtherPage = (url: string) => {
         navigate('/' + url)
     }
-    const callTestApi = async ()=>{
-        try {
-            const response = await getProductRecommend()
-            console.log(response)
-        } catch (error) {
-            console.log(error)
-            throw error;
-        }
-        
-
-    }
+    
     return (
         <>
-            <Navbar />
             <Swiper
                 effect={'coverflow'}
                 grabCursor={true}
@@ -94,8 +81,7 @@ function Home() {
                     ))}
                 </div>
             </div>
-            <Content topic='Recommend' checkNav={false}/>
-            <button onClick={callTestApi}>Test</button>
+            <Content topic='Recommend' />
         </>
     );
 }

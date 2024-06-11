@@ -49,14 +49,14 @@ export const getProductRecommend = async () => {
 }
 export const getProductByCategory = async ({category}:InputCategory) => {
     try {
-        const response = await axios.post('/api/recommend',{
+        const response = await axios.post('/api/getDataByCategory',{
             category:category
         },{
             withCredentials:true
         });
         return response.data
     } catch (error) {
-        return error
+        throw error
     }
 }
 

@@ -8,7 +8,6 @@ import (
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/csrf"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -21,7 +20,6 @@ func main() {
 		panic("failed to connect database")
 	}
 	db.AutoMigrate(&domain.Users{}, &domain.Product{})
-
 	app.Use(cors.New(cors.Config{
 		AllowMethods: "GET, POST, PUT, DELETE, OPTIONS",
 	}))
@@ -39,8 +37,7 @@ func main() {
 		SigningKey:  jwtware.SigningKey{Key: []byte("koala0325687")},
 		TokenLookup: "cookie:token",
 	}))
-	app.Use(csrf.New())
 	app.Get("/recommend", productHttp.ProductRecommend)
-	app.Get("/getDataBycategory", productHttp.GetProductByCategory)
+	app.Post("/getDataBycategory", productHttp.GetProductByCategory)
 	app.Listen(":3000")
 }

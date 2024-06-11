@@ -7,41 +7,77 @@ import {
 } from 'react-router-dom';
 import Auth from './Component/Auth/auth';
 import Footer from './Component/Footer/footer';
+import Navbar from './Component/Navbar/navbar';
 
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: (
+      <>
+        <Navbar />
+        <Home />
+      </>
+    ),
   },
   {
     path: '/clothes',
-    element: <Content topic="Clothes" checkNav={true} />,
+    element: (
+      <>
+        <Navbar />
+        <Content topic="Clothes" />
+      </>
+    ),
   },
   {
     path: '/trousers',
-    element: <Content topic="Trousers" checkNav={true} />,
+    element: (
+      <>
+        <Navbar />
+        <Content topic="Trousers" />
+      </>
+    ),
   },
   {
     path: '/socks_shoes',
-    element: <Content topic="Socks and Shoes" checkNav={true} />,
+    element: (
+      <>
+        <Navbar />
+        <Content topic="Socks and Shoes"  />
+      </>
+    ),
   },
   {
     path: '/accessories',
-    element: <Content topic="Accessories" checkNav={true} />,
+    element: (
+      <>
+        <Navbar />
+        <Content topic="Accessories" />
+      </>
+    ),
   },
   {
     path: '/login',
-    element: <Auth state="login" />,
+    element: (
+      <>
+      <Navbar />
+      <Auth state="login" />
+      </>
+    ),
   },
   {
     path: '/signup',
-    element: <Auth state="register" />,
+    element: (
+      <>
+      <Navbar />
+      <Auth state="register" />
+      </>
+    ),
   },
 ]);
 
 function App() {
-  
+
   return (
     <>
       <div className="main">

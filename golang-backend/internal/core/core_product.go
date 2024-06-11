@@ -23,7 +23,7 @@ func (r *ProductRepositoryIml) ReqData() ([]domain.Product, error) {
 	return data, err
 }
 func (r *ProductRepositoryIml) ReqDataByCategory(category string) ([]domain.Product, error) {
-	examCategory := []string{"clothes", "trousers", "socks_shoes", "accessories"}
+	examCategory := []string{"Clothes", "Bottom", "Socks and Shoes", "Acc"}
 	isInCategory := false
 	for _, item := range examCategory {
 		if category == item {

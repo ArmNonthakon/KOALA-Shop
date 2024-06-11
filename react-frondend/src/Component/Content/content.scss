@@ -1,7 +1,43 @@
+.section-topic {
+    display: flex;
+    justify-content: space-between;
+    width: 93.5%;
+    margin: 0px 3%;
+    margin-top: 40px;
+    height: 50px;
 
-h2{
-    margin: 50px 0px 50px 5%;
+    .section-topic-sort {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 15%;
+
+        p {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 10px;
+            width: 90px;
+            height: 5px;
+            padding: 12px 14px;
+            border: 1px solid;
+            cursor: pointer;
+            p {
+                font-size: 17px;
+                font-weight: 500;
+            }
+            img{
+                margin-bottom: 1px;
+            }
+        }
+    }
 }
+
 
 .section-content {
     display: flex;
@@ -9,19 +45,42 @@ h2{
     align-items: start;
     width: 100%;
     height: auto;
-    .content-container{
-        width: 90%;
+    .category-content {
+        position: sticky;
+        top: 0;
+        width: 13%;
+        padding-top: 20px;
+        h3 {
+            font-weight: 600;
+        }
+
+        p {
+            margin-left: 30px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        p:hover{
+            color: rgba(0, 0, 0, 0.696);
+            
+        }
+    }
+
+    .content-container {
+        padding-top: 20px;
+        width: 80%;
+        height: auto;
         display: grid;
-        justify-content: center;
-        grid-template-columns: repeat(3,30%);
-        column-gap: 3.33%;
+        justify-content: end;
+        grid-template-columns: repeat(4, 23%);
+        column-gap: 2%;
         row-gap: 50px;
     }
 }
+
 @media only screen and (max-width:700px) {
-    .section-content{
-        .content-container{
-            grid-template-columns: repeat(2,40%);
+    .section-content {
+        .content-container {
+            grid-template-columns: repeat(2, 40%);
             column-gap: 10%;
         }
     }

@@ -40,6 +40,7 @@ const Product = ({ name, price, pic, category }: ProductInformation) => {
                         <p>$ {price}</p>
                         <p>THB {price * 36.79}</p>
                     </div>
+                    <button>Add to cart</button>
                 </div>
             </div>
         </>

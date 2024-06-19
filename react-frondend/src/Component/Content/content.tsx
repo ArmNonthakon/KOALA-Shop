@@ -9,7 +9,6 @@ interface Input {
 
 const Content = ({ topic }: Input) => {
     const [data, setData] = useState<any[]>([]);
-
     const callData = async () => {
         const category = topic;
         if (category === "Recommend") {

@@ -1,37 +1,41 @@
-
-.product{
+.product {
     min-height: 400px;
     height: auto;
-    cursor: pointer;
     height: auto;
     border: 1px solid;
-    .section-img-product{
+
+    .section-img-product {
         max-width: 300px;
-        height: 70.3%;
+        height: 65.3%;
         background-color: rgb(212, 212, 212);
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 7px;
-        img{
+
+        img {
             width: 100%;
             max-width: 200px;
         }
     }
-    .section-describe-product{
+
+    .section-describe-product {
         padding: 2px 10px;
         padding-top: 10px;
         height: 20%;
         border-top: 1px solid;
-        div{
+
+        div {
             display: flex;
             justify-content: space-between;
-            p{
+
+            p {
                 color: rgb(7, 7, 7);
             }
-            div{
-                
-                div{
+
+            div {
+
+                div {
                     width: 15px;
                     height: 15px;
                     border: 2px solid rgb(155, 155, 155);
@@ -39,28 +43,48 @@
                 }
             }
         }
-        
+
+        button {
+            font-family: "Teko", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 17px;
+            width: 100%;
+            height: 28px;
+            padding: 5px 0px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
     }
 }
-.product:hover{
+
+.product:hover {
     scale: 1.1;
     transition: scale 0.3s;
-    
+
 }
+
 @media only screen and (max-width:700px) {
-    .product{
-        .section-describe-product{
-            p{
+    .product {
+        .section-describe-product {
+            p {
                 font-size: 16px;
             }
         }
     }
 }
+
 @media only screen and (max-width:400px) {
-    .product{
-        .section-describe-product{
+    .product {
+        .section-describe-product {
             padding: 13px 15px;
-            p{
+
+            p {
                 font-size: 13px;
             }
         }

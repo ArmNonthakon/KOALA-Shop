@@ -5,7 +5,7 @@ pipeline {
         }
     }
     stages {
-        stage('Deploy') {
+        /*stage('Deploy') {
             steps {
                 script {
                     sh 'docker-compose up -d'
@@ -17,6 +17,11 @@ pipeline {
                 script {
                     sh 'docker-compose down --rmi all'
                 }
+            }
+        }*/
+        stage('Hello'){
+            steps{
+                echo "Hello"
             }
         }
     }

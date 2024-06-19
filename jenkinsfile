@@ -1,10 +1,16 @@
 pipeline {
     agent any
     stages{
-        stage("Hello"){
+        stage("Deploy docker"){
         steps{
-            echo 'Hello world'
-            echo 'test'
+            script {
+                sh 'sudo docker-compose up -d'
+            }
+        }
+        stage("Down docker"){
+            script {
+                sh 'sudo docker-compose down --rmi all'
+            }
         }
     }
     }

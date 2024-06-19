@@ -3,11 +3,15 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                sh 'sudo docker-compose up -d'
-            }
-            stage('Down') {
-                sh 'sudo docker-compose down --rmi all'
+                script {
+                    sh 'sudo docker-compose up -d'
+                }
             }
         }
+        stage('Down') {
+                script {
+                    sh 'sudo docker-compose down --rmi all'
+                }
+            }
     }
 }

@@ -1,9 +1,17 @@
 pipeline {
     agent none
     stages {
-        stage('Test') {
-            agent {
-                docker { image 'node:16-alpine' }
+        stage('Back-end') {
+            agent { // สร้าง docker agent จาก maven image
+                docker { image 'maven:3.8.1-adoptopenjdk-11' }
+            }
+            steps { //command ทั้งหมดจะถูกรันใน container agent
+                sh 'mvn --version'
+            }
+        }
+        stage('Front-end') {
+            agent { // สร้าง docker agent จาก node image
+                docker { image 'node:16.13.1-alpine' }
             }
             steps {
                 sh 'node --version'

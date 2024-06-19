@@ -9,9 +9,11 @@ pipeline {
             }
         }
         stage('Down') {
+            steps {
                 script {
                     sh 'sudo docker-compose down --rmi all'
                 }
             }
+        }
     }
 }

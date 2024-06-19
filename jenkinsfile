@@ -2,10 +2,11 @@ pipeline {
     agent {
         docker {
             image 'docker:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     stages {
-        /*stage('Deploy') {
+        stage('Deploy') {
             steps {
                 script {
                     sh 'docker-compose up -d'
@@ -17,11 +18,6 @@ pipeline {
                 script {
                     sh 'docker-compose down --rmi all'
                 }
-            }
-        }*/
-        stage('Hello'){
-            steps{
-                echo "Hello"
             }
         }
     }

@@ -1,11 +1,10 @@
 pipeline {
-    agent none
+    agent {
+        docker { image 'docker:latest' }
+    }
     stages {
         stage('Deploy') {
             steps {
-                agent{
-                    docker{image 'docker:latest'}
-                }
                 script {
                     sh 'docker-compose up -d'
                 }
@@ -13,9 +12,6 @@ pipeline {
         }
         stage('Down') {
             steps {
-                agent{
-                    docker{image 'docker:latest'}
-                }
                 script {
                     sh 'docker-compose down --rmi all'
                 }
